@@ -6,17 +6,17 @@ endpoints:
   triggers: triggers
   yml: yml
 templates:
-  workflows: /templates/workflows
-  code_signing: /templates/code_signing
-  secrets: /templates/secrets
-  env_vars: /templates/env_vars
-  triggers: /templates/triggers
-  yml: /templates/yml
+  workflows: templates/workflows
+  code_signing: templates/code_signing
+  secrets: templates/secrets
+  env_vars: templates/env_vars
+  triggers: templates/triggers
+  yml: templates/yml
 website:
   step_config_fetch: undefined # TODO: specify
   libraries_fetch: undefined # TODO: specify
-  app_config_get: /api/app/<app_slug>/config/download?api_token=<api_token>
-  app_config_post: /api/app/<app_slug>/config/upload?api_token=<api_token>
+  app_config_get: /api/app/<app_slug>/config/download.json?api_token=<api_token>
+  app_config_post: /api/app/<app_slug>/config/upload.json?api_token=<api_token>
   default_outputs_get: /api/app/<app_slug>/default_step_outputs.json?api_token=<api_token>
   all_stacks_get: /api/app/<app_slug>/all_stack_info.json?api_token=<api_token>
   secrets_get: /api/app/<app_slug>/secrets.json?api_token=<api_token>
@@ -25,9 +25,11 @@ website:
   prov_profiles_delete: /app/<app_slug>/prov_profile_documents.json?api_token=<api_token>
   prov_profile_download:  /prov_profile_document/<prov_profile_id>.json?api_token=<api_token>
   prov_profile_delete:  /prov_profile_document/<prov_profile_id>.json?api_token=<api_token>
-  yml_get:  /api/app/<app_slug>/config.yml?api_token=<api_token>
-  yml_download:  /api/app/<app_slug>/config.yml?api_token=<api_token>?is_download=1
-  yml_post: /api/app/<app_slug>/config.json?api_token=<api_token>
+  yml_get:  /api/app/<app_slug>/config/download.yml?api_token=<api_token>
+  yml_download:  /api/app/<app_slug>/config/download.yml?api_token=<api_token>?is_download=1
+  yml_post: /api/app/<app_slug>/config/upload.json?api_token=<api_token>
+  bitrise_steplib_get: https://bitrise-steplib-collection.s3.amazonaws.com/spec.json
+  bitrise_steplib_source: https://github.com/bitrise-io/bitrise-steplib.git
 local_server:
   step_config_fetch: /api/step_info
   libraries_fetch: /api/spec

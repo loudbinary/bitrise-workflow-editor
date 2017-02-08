@@ -94,6 +94,7 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 	};
 
 	requestService.libraryFetch = function(libraryURLs, requestConfig) {
+		var requestMethod;
 		var requestURL;
 		var requestData;
 
@@ -105,18 +106,32 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 
 		switch (requestService.mode) {
 			case "website":
-				requestURL = "<%= webserver_path(data[:routes][:website][:libraries_fetch]) %>";
+				requestMethod = "get";
+				requestURL = "<%= webserver_path(data[:routes][:website][:bitrise_steplib_get]) %>";
 
 				break;
 			case "cli":
+				requestMethod = "post";
 				requestURL = "<%= local_server_path(data[:routes][:local_server][:libraries_fetch]) %>";
 
 				break;
 		}
 
 		return $q(function(resolve, reject) {
-			$http.post(requestURL, requestData, requestConfig).then(function(response) {
-				resolve(response.data.library_map);
+			$http[requestMethod](requestURL, requestData, requestConfig).then(function(response) {
+				switch (requestService.mode) {
+					case "website":
+						var libraryMap = {};
+						libraryMap[response.data.steplib_source] = response.data;
+
+						resolve(libraryMap);
+
+						break;
+					case "cli":
+						resolve(response.data.library_map);
+
+						break;
+				}
 			}, function(response) {
 				if (!response || !response.data || !response.data.error_msg) {
 					return reject(new Error("<%= data[:strings][:request_service][:libraries_fetch][:default_error] %>"));
@@ -226,9 +241,7 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 
 	requestService.postAppConfig = function(appConfig, requestConfig) {
 		var requestURL;
-		var requestData = {
-			bitrise_yml: appConfig
-		};
+		var requestData;
 
 		switch (requestService.mode) {
 			case "website":
@@ -236,10 +249,16 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 					app_slug: requestService.appSlug,
 					api_token: requestService.apiToken
 				});
+				requestData = {
+					app_config_datastore_yaml: appConfig
+				}
 
 				break;
 			case "cli":
 				requestURL = "<%= local_server_path(data[:routes][:local_server][:app_config_post]) %>";
+				requestData = {
+					bitrise_yml: appConfig
+				}
 
 				break;
 		}
@@ -259,11 +278,7 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 
 	requestService.postSecrets = function(secrets, requestConfig) {
 		var requestURL;
-		var requestData = {
-			envs: _.map(secrets, function(aSecret) {
-				return aSecret.userVariableConfig
-			})
-		};
+		var requestData;
 
 		switch (requestService.mode) {
 			case "website":
@@ -271,10 +286,22 @@ angular.module("BitriseWorkflowEditor").service("requestService", function($q, $
 					app_slug: requestService.appSlug,
 					api_token: requestService.apiToken
 				});
+				requestData = {
+					app_secrets: {
+						envs: _.map(secrets, function(aSecret) {
+							return aSecret.userVariableConfig
+						})
+					}
+				};
 
 				break;
 			case "cli":
 				requestURL = "<%= local_server_path(data[:routes][:local_server][:secrets_post]) %>";
+				requestData = {
+					envs: _.map(secrets, function(aSecret) {
+						return aSecret.userVariableConfig
+					})
+				};
 
 				break;
 		}
