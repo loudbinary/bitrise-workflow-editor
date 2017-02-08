@@ -26,7 +26,7 @@ website:
   prov_profile_download:  /prov_profile_document/<prov_profile_id>.json?api_token=<api_token>
   prov_profile_delete:  /prov_profile_document/<prov_profile_id>.json?api_token=<api_token>
   yml_get:  /api/app/<app_slug>/config/download.yml?api_token=<api_token>
-  yml_download:  /api/app/<app_slug>/config/download.yml?api_token=<api_token>?is_download=1
+  yml_download:  /api/app/<app_slug>/config/download.yml?api_token=<api_token>&is_download=1
   yml_post: /api/app/<app_slug>/config/upload.json?api_token=<api_token>
   bitrise_steplib_get: https://bitrise-steplib-collection.s3.amazonaws.com/spec.json
   bitrise_steplib_source: https://github.com/bitrise-io/bitrise-steplib.git
