@@ -1,0 +1,111 @@
+@import "default";
+@import "constants";
+
+.tab-code-signing {
+	$section-horizontalspacing: 40px;
+
+	section.certificate-help {
+		position: relative;
+		@include margin-y(30px);
+		padding: 25px $section-horizontalspacing;
+		background-color: $def-green-ultralight;
+
+		ul {
+			@include margin-y(0);
+			padding-left: 0;
+			list-style: none;
+
+			li {
+				@include display-flex;
+
+				&:before {
+					content: "";
+					@include flex-shrink(0);
+					width: 50px;
+					margin-right: 20px;
+					background-position: center top 5px;
+					background-repeat: no-repeat;
+				}
+
+				h2 {
+					margin-top: 0;
+					margin-bottom: 4px;
+					font-size: 18px;
+					font-weight: 500;
+					color: $def-green;
+				}
+
+				p {
+					margin-top: 0;
+					margin-bottom: 10px;
+					font-size: 14px;
+					font-weight: 100;
+					color: $def-darkgrey;
+				}
+
+				code {
+					display: block;
+					@include border-radius($def-radius);
+					padding: 8px 18px;
+					word-break: break-all;
+					background-color: $def-green-verylight;
+				}
+			}
+
+			li:not(:last-child) {
+				margin-bottom: 25px;
+			}
+
+			li.codesigndoc {
+
+				&:before {
+					$svg_content_with_attributes: svg_content_with_attributes('<%= svg("code_signing/icon-codesigndoc") %>', (
+						fill: rgba($def-green, 0.99)
+					));
+
+					background-image: url('data:image/svg+xml;utf8, #{ $svg_content_with_attributes }');
+					background-size: 30px auto;
+				}
+			}
+
+			li.upload {
+
+				&:before {
+					$svg_content_with_attributes: svg_content_with_attributes('<%= svg("code_signing/icon-upload") %>', (
+						fill: rgba($def-green, 0.99)
+					));
+
+					background-image: url('data:image/svg+xml;utf8, #{ $svg_content_with_attributes }');
+					background-size: 36px auto;
+				}
+			}
+
+			li.add-step {
+
+				&:before {
+					$svg_content_with_attributes: svg_content_with_attributes('<%= svg("code_signing/icon-add_step") %>', (
+						fill: rgba($def-green, 0.99)
+					));
+
+					background-image: url('data:image/svg+xml;utf8, #{ $svg_content_with_attributes }');
+					background-size: 37px auto;
+				}
+			}
+		}
+
+		button.hide {
+			@include position(absolute, 20px, 20px);
+			opacity: 0.5;
+			@include transition(opacity, $def-transition_duration);
+
+			svg {
+				@include size(15px);
+				fill: black;
+			}
+		}
+
+		button.hide:focus, button.hide:hover {
+			opacity: 1.0;
+		}
+	}
+}
