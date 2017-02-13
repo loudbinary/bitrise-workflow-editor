@@ -32,7 +32,7 @@ angular.module("BitriseWorkflowEditor").controller("MainController", function($s
 			path: "<%= data[:routes][:endpoints][:workflows] %>",
 			possibleURLParameterKeys: ["workflow_id"],
 			cssClass: "workflows"
-		}, (requestService.mode == "cli" ? {
+		}, (requestService.mode == "website" ? {
 			id: "code-signing",
 			cookieValue: "code-signing",
 			title: "<%= data[:strings][:main][:menus][1] %>",
