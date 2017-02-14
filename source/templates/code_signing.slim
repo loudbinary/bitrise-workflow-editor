@@ -27,9 +27,10 @@
 						button.name[ng-bind="provProfile.name" ng-click="provProfileCtrl.renameProvProfileSelected(provProfile)" ng-if="provProfile != provProfileCtrl.renamedProvProfile"]
 						.rename[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
 							input[type="text" ng-model="provProfileCtrl.renamedProvProfileName"]
-							button.ok.rebo.small.green[ng-click="provProfileCtrl.renameProvProfileCompleted()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
-						button.furto.download[ng-click="provProfileCtrl.downloadProvProfile(provProfile)"] = svg("arrow_tailed_slim-down")
-						button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
+							button.ok.rebo.small.green[ng-click="provProfileCtrl.rename()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
+						.actions
+							button.furto.download[ng-click="provProfileCtrl.downloadProvProfile(provProfile)"] = svg("arrow_tailed_slim-down")
+							button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
 				p.progress-indicator[progress-model="provProfileCtrl.uploadProvProfileProgress"]
 				file-uploader[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress" onupload="provProfileCtrl.uploadProvProfile()"]
 					strong == data[:strings][:code_signing][:prov_profile][:upload_action]

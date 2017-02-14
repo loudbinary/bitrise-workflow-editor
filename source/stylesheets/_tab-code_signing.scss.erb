@@ -179,9 +179,37 @@
 				border-color: $def-mediumlightgrey;
 			}
 
-			button.download, button.delete {
-				@include flex-shrink(0);
-				margin-left: 12px;
+			.actions {
+
+				button {
+					@include flex-shrink(0);
+					margin-left: 12px;
+				}
+			}
+
+			@include media-below-small {
+				@include flex-direction(column);
+
+				&:before {
+					margin-right: 0;
+				}
+
+				button.name, .rename {
+					margin-top: 6px;
+					margin-right: 0;
+					margin-bottom: 6px;
+				}
+
+				.rename {
+					@include justify-content(center);
+				}
+
+				.actions {
+				
+					button:first-child {
+						margin-left: 0;
+					}
+				}
 			}
 		}
 	}

@@ -56,10 +56,20 @@ angular.module("BitriseWorkflowEditor").controller("ProvProfileController", func
 		viewModel.renamedProvProfileName = provProfile.name;
 	};
 
-	viewModel.renameProvProfileCompleted = function() {
-		viewModel.renamedProvProfile.name = viewModel.renamedProvProfileName;
-		viewModel.renamedProvProfile = null;
-		viewModel.renamedProvProfileName = undefined;
+	viewModel.rename = function() {
+		viewModel.provProfileActionProgress.start("<%= data[:strings][:code_signing][:prov_profile][:rename_progress][:in_progress] %>");
+		if (viewModel.uploadProvProfileProgress.isIdle && viewModel.uploadProvProfileProgress.statusMessage !== null) {
+			viewModel.uploadProvProfileProgress.reset();
+		}
+
+		// TODO: implement
+		$timeout(function() {
+			viewModel.renamedProvProfile.name = viewModel.renamedProvProfileName;
+			viewModel.renamedProvProfile = null;
+			viewModel.renamedProvProfileName = undefined;
+
+			viewModel.provProfileActionProgress.success();
+		}, 2000);
 	};
 
 	viewModel.deleteProvProfile = function(provProfile) {
