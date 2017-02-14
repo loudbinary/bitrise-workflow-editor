@@ -15,3 +15,22 @@
 					h2 == data[:strings][:code_signing][:certificate_help][:add_step][:title]
 					p == data[:strings][:code_signing][:certificate_help][:add_step][:details]
 		button.hide[ng-click="codeSigningCtrl.shouldShowCodeSigningHints = false"] = svg("cross_slim")
+	section.cardo.uppercase.slim.provisioning-profiles[ng-controller="ProvProfileController as provProfileCtrl"]
+		header
+			h2 == data[:strings][:code_signing][:prov_profile][:header]
+		article
+			p.progress-indicator[progress-model="provProfileCtrl.loadProvProfilesProgress"]
+			p.progress-indicator[progress-model="provProfileCtrl.provProfileActionProgress"]
+			div[ng-if="provProfileCtrl.loadProvProfilesProgress.isIdle && !provProfileCtrl.provProfileActionProgress.isInProgress"]
+				ul.entries.prov-profiles
+					li[ng-repeat="provProfile in provProfileCtrl.provProfiles"]
+						button.name[ng-bind="provProfile.name" ng-click="provProfileCtrl.renameProvProfileSelected(provProfile)" ng-if="provProfile != provProfileCtrl.renamedProvProfile"]
+						.rename[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
+							input[type="text" ng-model="provProfileCtrl.renamedProvProfileName"]
+							button.ok.rebo.small.green[ng-click="provProfileCtrl.renameProvProfileCompleted()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
+						button.furto.download[ng-click="provProfileCtrl.downloadProvProfile(provProfile)"] = svg("arrow_tailed_slim-down")
+						button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
+				p.progress-indicator[progress-model="provProfileCtrl.uploadProvProfileProgress"]
+				file-uploader[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress" onupload="provProfileCtrl.uploadProvProfile()"]
+					strong == data[:strings][:code_signing][:prov_profile][:upload_action]
+					em == data[:strings][:code_signing][:prov_profile][:upload_instructions]

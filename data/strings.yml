@@ -107,6 +107,18 @@ code_signing:
       details: You’ll need this step in your workflow to make code signing work for your project
   prov_profile:
     header: Provisioning profile
+    upload_action: Add Provisioning Profile
+    upload_instructions: Click here or Drag & Drop to upload
+    load_progress:
+      in_progress: Loading, wait a sec...
+    upload_progress:
+      in_progress: "Uploading, wait a sec..."
+      success: "Provisioning Profile uploaded!"
+    download_progress:
+      in_progress: Preparing download, wait a sec...
+    delete_progress:
+      in_progress: Deleting, wait a sec...
+    rename_ok: OK
 env_vars:
   load_progress:
     in_progress: Loading, wait a sec...
