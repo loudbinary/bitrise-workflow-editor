@@ -170,7 +170,7 @@
 					@include border-radius($def-radius);	
 				}
 
-				button.ok {
+				:not(:first-child) {
 					margin-left: 6px;
 				}
 			}
@@ -187,7 +187,7 @@
 				}
 			}
 
-			@include media-below-small {
+			@include media-below-mid {
 				@include flex-direction(column);
 
 				&:before {
@@ -202,6 +202,20 @@
 
 				.rename {
 					@include justify-content(center);
+					@include flex-wrap(wrap);
+
+					input {
+						width: 100%;
+						margin-bottom: 6px;
+					}
+
+					button:first-of-type {
+						margin-left: 0;
+					}
+
+					button.ok, button.cancel {
+						@include flex-grow(1);
+					}
 				}
 
 				.actions {
@@ -275,7 +289,7 @@
 		}
 	}
 
-	section.code-signing-identity {
+	section.code-signing-identities {
 
 		ul.entries {
 
@@ -283,6 +297,80 @@
 
 				&:before {
 					background-image: image-url("code_signing/file-purple.svg");
+				}
+
+				.rename + .password-edit {
+					display: none;
+				}
+
+				.password-edit {
+					@include display-flex;
+					@include align-items(center);
+					margin-right: auto;
+
+					.password {
+						@include display-flex;
+
+						input {
+							border: none;
+							@include border-radius($def-radius);
+							padding: 4px 6px;
+							background-color: $def-lightgrey;
+						}
+
+						button {
+							margin-left: 6px;
+						}
+					}
+
+					.show-password {
+						@include display-flex;
+						margin-left: 15px;
+
+						label {
+							margin-left: 15px;
+							font-size: 12px;
+							font-weight: 100;
+							color: $def-grey;
+						}
+					}
+
+					@include media-below-mid {
+						@include flex-direction(column);
+						margin-right: 0;
+						margin-bottom: 10px;
+
+						.password {
+							@include justify-content(center);
+							@include flex-wrap(wrap);
+							margin-bottom: 6px;
+
+							input {
+								width: 100%;
+							}
+
+							input:not(:last-child) {
+								margin-bottom: 6px;	
+							}
+
+							.change-password-actions {
+								@include display-flex;
+								width: 100%;
+
+								button:first-of-type {
+									margin-left: 0;
+								}
+
+								button.ok, button.cancel {
+									@include flex-grow(1);
+								}
+							}
+						}
+
+						.show-password {
+							margin-left: 0;
+						}
+					}
 				}
 			}
 		}

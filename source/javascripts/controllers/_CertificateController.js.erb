@@ -1,0 +1,131 @@
+(function() {
+
+"use strict";
+
+angular.module("BitriseWorkflowEditor").controller("CertificateController", function($timeout, Progress, Certificate) {
+
+	var viewModel = this;
+
+	viewModel.certificates;
+	viewModel.isAddMode = false;
+	viewModel.loadCertificatesProgress = new Progress();
+	viewModel.uploadCertificateProgress = new Progress();
+	viewModel.certificateActionProgress = new Progress();
+	viewModel.certificates;
+	viewModel.renamedCertificate = null;
+	var renamedCertificateOriginalName;
+	viewModel.passwordEditedCertificate = null;
+	var passwordEditedCertificateOriginalPassword;
+
+	function loadCertificates() {
+		viewModel.loadCertificatesProgress.start("<%= data[:strings][:code_signing][:certificate][:load_progress][:in_progress] %>");
+		if (viewModel.uploadCertificateProgress.isIdle && viewModel.uploadCertificateProgress.statusMessage !== null) {
+			viewModel.uploadCertificateProgress.reset();
+		}
+
+		// TODO: implement
+		$timeout(function() {
+			viewModel.certificates = _.times(5, function(index) {
+				var certificate = new Certificate();
+				certificate.name = "certificate-" + index;
+				certificate.password = "certificate-password-" + index;
+
+				return certificate;
+			});
+
+			viewModel.loadCertificatesProgress.success();
+		}, 2000);
+	}
+
+	viewModel.uploadCertificate = function() {
+		viewModel.uploadCertificateProgress.start("<%= data[:strings][:code_signing][:certificate][:upload_progress][:in_progress] %>");
+
+		// TODO: implement
+		$timeout(function() {
+			var certificate = new Certificate();
+			certificate.name = "certificate-" + viewModel.certificates.length;
+			certificate.password = "certificate-password-" + viewModel.certificates.length;
+			viewModel.certificates.push(certificate);
+
+			viewModel.uploadCertificateProgress.success("<%= data[:strings][:code_signing][:certificate][:upload_progress][:success] %>");
+		}, 2000);
+	};
+
+	viewModel.downloadCertificate = function(certificate) {
+		window.location = certificate.name;
+	};
+
+	viewModel.renameCertificateSelected = function(certificate) {
+		viewModel.renamedCertificate = certificate;
+		renamedCertificateOriginalName = certificate.name;
+	};
+
+	viewModel.rename = function() {
+		viewModel.certificateActionProgress.start("<%= data[:strings][:code_signing][:certificate][:rename_progress][:in_progress] %>");
+		if (viewModel.uploadCertificateProgress.isIdle && viewModel.uploadCertificateProgress.statusMessage !== null) {
+			viewModel.uploadCertificateProgress.reset();
+		}
+
+		// TODO: implement
+		$timeout(function() {
+			viewModel.renamedCertificate = null;
+			renamedCertificateOriginalName = undefined;
+
+			viewModel.certificateActionProgress.success();
+		}, 2000);
+	};
+
+	viewModel.cancelRename = function() {
+		viewModel.renamedCertificate.name = renamedCertificateOriginalName;
+		viewModel.renamedCertificate = null;
+		renamedCertificateOriginalName = undefined;
+	};
+
+	viewModel.changePasswordSelected = function(certificate) {
+		viewModel.passwordEditedCertificate = certificate;
+		passwordEditedCertificateOriginalPassword = certificate.password;
+	};
+
+	viewModel.changePassword = function() {
+		viewModel.certificateActionProgress.start("<%= data[:strings][:code_signing][:certificate][:change_password_progress][:in_progress] %>");
+		if (viewModel.uploadCertificateProgress.isIdle && viewModel.uploadCertificateProgress.statusMessage !== null) {
+			viewModel.uploadCertificateProgress.reset();
+		}
+
+		// TODO: implement
+		$timeout(function() {
+			viewModel.passwordEditedCertificate = null;
+			passwordEditedCertificateOriginalPassword = undefined;
+
+			viewModel.certificateActionProgress.success();
+		}, 2000);
+	};
+
+	viewModel.cancelPasswordChange = function() {
+		viewModel.passwordEditedCertificate.password = passwordEditedCertificateOriginalPassword;
+		viewModel.passwordEditedCertificate = null;
+		passwordEditedCertificateOriginalPassword = undefined;
+	};
+
+	viewModel.deleteCertificate = function(certificate) {
+		viewModel.certificateActionProgress.start("<%= data[:strings][:code_signing][:certificate][:delete_progress][:in_progress] %>");
+		if (viewModel.uploadCertificateProgress.isIdle && viewModel.uploadCertificateProgress.statusMessage !== null) {
+			viewModel.uploadCertificateProgress.reset();
+		}
+
+		// TODO: implement
+		$timeout(function() {
+			viewModel.certificates = _.without(viewModel.certificates, certificate);
+			viewModel.certificateActionProgress.success();
+		}, 2000);
+	};
+
+	viewModel.addCertificateSelected = function() {
+		viewModel.isAddMode = true;
+	};
+
+	loadCertificates();
+
+});
+
+})();

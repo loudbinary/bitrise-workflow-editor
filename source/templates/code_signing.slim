@@ -26,8 +26,9 @@
 					li[ng-repeat="provProfile in provProfileCtrl.provProfiles"]
 						button.name[ng-bind="provProfile.name" ng-click="provProfileCtrl.renameProvProfileSelected(provProfile)" ng-if="provProfile != provProfileCtrl.renamedProvProfile"]
 						.rename[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
-							input[type="text" ng-model="provProfileCtrl.renamedProvProfileName"]
+							input[type="text" ng-model="provProfile.name"]
 							button.ok.rebo.small.green[ng-click="provProfileCtrl.rename()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
+							button.cancel.rebo.small.danger[ng-click="provProfileCtrl.cancelRename()"] == data[:strings][:code_signing][:prov_profile][:rename_cancel]
 						.actions
 							button.furto.download[ng-click="provProfileCtrl.downloadProvProfile(provProfile)"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
@@ -35,3 +36,33 @@
 				file-uploader[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress" onupload="provProfileCtrl.uploadProvProfile()"]
 					strong == data[:strings][:code_signing][:prov_profile][:upload_action]
 					em == data[:strings][:code_signing][:prov_profile][:upload_instructions]
+	section.cardo.uppercase.slim.code-signing-identities[ng-controller="CertificateController as certificateCtrl"]
+		header
+			h2 == data[:strings][:code_signing][:certificate][:header]
+		article
+			p.progress-indicator[progress-model="certificateCtrl.loadCertificatesProgress"]
+			p.progress-indicator[progress-model="certificateCtrl.certificateActionProgress"]
+			div[ng-if="certificateCtrl.loadCertificatesProgress.isIdle && !certificateCtrl.certificateActionProgress.isInProgress"]
+				ul.entries.prov-profiles
+					li[ng-repeat="certificate in certificateCtrl.certificates" ng-init="showPassword = false"]
+						button.name[ng-bind="certificate.name" ng-click="certificateCtrl.renameCertificateSelected(certificate)" ng-if="certificate != certificateCtrl.renamedCertificate"]
+						.rename[ng-if="certificate == certificateCtrl.renamedCertificate"]
+							input[type="text" ng-model="certificate.name"]
+							button.ok.rebo.small.green[ng-click="certificateCtrl.rename()"] == data[:strings][:code_signing][:certificate][:rename_ok]
+							button.cancel.rebo.small.danger[ng-click="certificateCtrl.cancelRename()"] == data[:strings][:code_signing][:certificate][:rename_cancel]
+						.password-edit
+							.password
+								input[type="{{ showPassword ? 'text' : 'password' }}" ng-model="certificate.password" ng-focus="certificateCtrl.changePasswordSelected(certificate)"]
+								.change-password-actions[ng-if="certificate == certificateCtrl.passwordEditedCertificate"]
+									button.ok.rebo.small.green[ng-click="certificateCtrl.changePassword()"] == data[:strings][:code_signing][:certificate][:change_password_ok]
+									button.cancel.rebo.small.danger[ng-click="certificateCtrl.cancelPasswordChange()"] == data[:strings][:code_signing][:certificate][:change_password_cancel]
+							.show-password
+								checkbox.small[ng-model="showPassword" checkbox-id-expression="'code-signin-show-password-checkbox-' + $index"]
+								label[for="'code-signin-show-password-checkbox-' + $index"] == data[:strings][:code_signing][:certificate][:show_password]
+						.actions
+							button.furto.download[ng-click="certificateCtrl.downloadCertificate(certificate)"] = svg("arrow_tailed_slim-down")
+							button.furto.delete[ng-click="certificateCtrl.deleteCertificate(certificate)"] = svg("cross")
+				p.progress-indicator[progress-model="certificateCtrl.uploadCertificateProgress"]
+				file-uploader[ng-if="!certificateCtrl.uploadCertificateProgress.isInProgress" onupload="certificateCtrl.uploadCertificate()"]
+					strong == data[:strings][:code_signing][:certificate][:upload_action]
+					em == data[:strings][:code_signing][:certificate][:upload_instructions]

@@ -119,6 +119,29 @@ code_signing:
     delete_progress:
       in_progress: Deleting, wait a sec...
     rename_ok: OK
+    rename_cancel: Cancel
+    rename_progress:
+      in_progress: Renaming, wait a sec...
+  certificate:
+    header: Code Signing Identity
+    upload_action: Add the private key (.p12) for signing
+    upload_instructions: Click here or Drag & Drop to upload
+    load_progress:
+      in_progress: Loading, wait a sec...
+    upload_progress:
+      in_progress: "Uploading, wait a sec..."
+      success: "Certificate uploaded!"
+    download_progress:
+      in_progress: Preparing download, wait a sec...
+    delete_progress:
+      in_progress: Deleting, wait a sec...
+    show_password: Show password
+    change_password_ok: OK
+    change_password_cancel: Cancel
+    change_password_progress:
+      in_progress: Change password, wait a sec...
+    rename_ok: OK
+    rename_cancel: Cancel
     rename_progress:
       in_progress: Renaming, wait a sec...
 env_vars:
