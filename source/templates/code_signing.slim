@@ -24,9 +24,8 @@
 			div[ng-if="provProfileCtrl.loadProvProfilesProgress.isIdle && !provProfileCtrl.provProfileActionProgress.isInProgress"]
 				ul.entries.prov-profiles
 					li[ng-repeat="provProfile in provProfileCtrl.provProfiles"]
-						button.name[ng-bind="provProfile.name" ng-click="provProfileCtrl.renameProvProfileSelected(provProfile)" ng-if="provProfile != provProfileCtrl.renamedProvProfile"]
-						.rename[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
-							input[type="text" ng-model="provProfile.name"]
+						input.name[type="text" ng-model="provProfile.name" ng-focus="provProfileCtrl.renameProvProfileSelected(provProfile)"]
+						.rename-actions[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
 							button.ok.rebo.small.green[ng-click="provProfileCtrl.rename()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
 							button.cancel.rebo.small.danger[ng-click="provProfileCtrl.cancelRename()"] == data[:strings][:code_signing][:prov_profile][:rename_cancel]
 						.actions
@@ -45,12 +44,11 @@
 			div[ng-if="certificateCtrl.loadCertificatesProgress.isIdle && !certificateCtrl.certificateActionProgress.isInProgress"]
 				ul.entries.prov-profiles
 					li[ng-repeat="certificate in certificateCtrl.certificates" ng-init="showPassword = false"]
-						button.name[ng-bind="certificate.name" ng-click="certificateCtrl.renameCertificateSelected(certificate)" ng-if="certificate != certificateCtrl.renamedCertificate"]
-						.rename[ng-if="certificate == certificateCtrl.renamedCertificate"]
-							input[type="text" ng-model="certificate.name"]
+						input.name[type="text" ng-model="certificate.name" ng-focus="certificateCtrl.renameCertificateSelected(certificate)"]
+						.rename-actions[ng-if="certificate == certificateCtrl.renamedCertificate"]
 							button.ok.rebo.small.green[ng-click="certificateCtrl.rename()"] == data[:strings][:code_signing][:certificate][:rename_ok]
 							button.cancel.rebo.small.danger[ng-click="certificateCtrl.cancelRename()"] == data[:strings][:code_signing][:certificate][:rename_cancel]
-						.password-edit
+						.password-edit[ng-if="certificate != certificateCtrl.renamedCertificate"]
 							.password
 								input[type="{{ showPassword ? 'text' : 'password' }}" ng-model="certificate.password" ng-focus="certificateCtrl.changePasswordSelected(certificate)"]
 								.change-password-actions[ng-if="certificate == certificateCtrl.passwordEditedCertificate"]

@@ -141,45 +141,33 @@
 				background-repeat: no-repeat;
 			}
 
-			button.name, .rename {
-				margin-right: auto;
-			}
-
-			button.name, .rename input {
+			input.name {
+				@include flex-grow(1);
 				padding: 4px 8px;
 				font-size: 14px;
-				border-width: 1px;
-			}
-
-			button.name {
-				border-style: solid;
-				border-color: transparent;
+				border: 1px solid transparent;
 				@include border-radius($def-radius);
-				@include ellipsis_oneliner;
-				font-size: 14px;
-				font-weight: 400;
 				@include transition(border-color, $def-transition_duration);
 			}
 
-			.rename {
+			input.name:hover {
+				border-color: $def-mediumlightgrey;
+			}
+
+			input.name:focus {
+				border-color: $def-grey;
+			}
+
+			.rename-actions {
 				@include display-flex;
 
-				input {
-					border-style: solid;
-					border-color: $def-grey;
-					@include border-radius($def-radius);	
-				}
-
-				:not(:first-child) {
+				button {
 					margin-left: 6px;
 				}
 			}
 
-			button.name:hover, button.name:focus {
-				border-color: $def-mediumlightgrey;
-			}
-
 			.actions {
+				margin-left: auto;
 
 				button {
 					@include flex-shrink(0);
@@ -194,31 +182,29 @@
 					margin-right: 0;
 				}
 
-				button.name, .rename {
+				input.name {
+					width: 100%;
 					margin-top: 6px;
-					margin-right: 0;
-					margin-bottom: 6px;
+					text-align: center;
 				}
 
-				.rename {
+				.rename-actions {
 					@include justify-content(center);
 					@include flex-wrap(wrap);
+					margin-top: 6px;
 
-					input {
-						width: 100%;
-						margin-bottom: 6px;
-					}
-
-					button:first-of-type {
-						margin-left: 0;
-					}
-
-					button.ok, button.cancel {
+					button {
 						@include flex-grow(1);
+					}
+
+					button:first-child {
+						margin-left: 0;
 					}
 				}
 
 				.actions {
+					margin-top: 10px;
+					margin-left: 0;
 				
 					button:first-child {
 						margin-left: 0;
@@ -304,8 +290,10 @@
 				}
 
 				.password-edit {
+					@include flex-grow(1);
 					@include display-flex;
 					@include align-items(center);
+					margin-left: 6px;
 					margin-right: auto;
 
 					.password {
@@ -337,8 +325,9 @@
 
 					@include media-below-mid {
 						@include flex-direction(column);
+						margin-top: 10px;
+						margin-left: 0;
 						margin-right: 0;
-						margin-bottom: 10px;
 
 						.password {
 							@include justify-content(center);
