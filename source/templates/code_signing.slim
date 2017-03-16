@@ -32,9 +32,10 @@
 							button.furto.download[ng-click="provProfile.download()"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
 				p.progress-indicator[progress-model="provProfileCtrl.uploadProvProfileProgress"]
-				file-uploader[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress" onupload="provProfileCtrl.uploadProvProfile()"]
-					strong == data[:strings][:code_signing][:prov_profile][:upload_action]
-					em == data[:strings][:code_signing][:prov_profile][:upload_instructions]
+				.file-upload[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress"]
+					file-uploader[onupload="provProfileCtrl.uploadProvProfile()"]
+						strong == data[:strings][:code_signing][:prov_profile][:upload_action]
+						em == data[:strings][:code_signing][:prov_profile][:upload_instructions]
 	section.cardo.uppercase.slim.code-signing-identities[ng-controller="CertificateController as certificateCtrl"]
 		header
 			h2 == data[:strings][:code_signing][:certificate][:header]
@@ -61,9 +62,10 @@
 							button.furto.download[ng-click="certificateCtrl.downloadCertificate(certificate)"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="certificateCtrl.deleteCertificate(certificate)"] = svg("cross")
 				p.progress-indicator[progress-model="certificateCtrl.uploadCertificateProgress"]
-				file-uploader[ng-if="!certificateCtrl.uploadCertificateProgress.isInProgress" onupload="certificateCtrl.uploadCertificate()"]
-					strong == data[:strings][:code_signing][:certificate][:upload_action]
-					em == data[:strings][:code_signing][:certificate][:upload_instructions]
+				.file-upload[ng-if="!certificateCtrl.uploadCertificateProgress.isInProgress"]
+					file-uploader[onupload="certificateCtrl.uploadCertificate()"]
+						strong == data[:strings][:code_signing][:certificate][:upload_action]
+						em == data[:strings][:code_signing][:certificate][:upload_instructions]
 	section.cardo.uppercase.slim.generic-file-storage[ng-controller="GenericFileController as genericFileCtrl"]
 		header
 			h2 == data[:strings][:code_signing][:generic_file][:header]
@@ -81,6 +83,10 @@
 							button.furto.download[ng-click="genericFile.download()"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="genericFileCtrl.deleteGenericFile(genericFile)"] = svg("cross")
 				p.progress-indicator[progress-model="genericFileCtrl.uploadGenericFileProgress"]
-				file-uploader[ng-if="!genericFileCtrl.uploadGenericFileProgress.isInProgress" onupload="genericFileCtrl.uploadGenericFile()"]
-					strong[ng-bind="genericFileCtrl.uploadInstruction"]
-					em == data[:strings][:code_signing][:generic_file][:upload_instructions]
+				.file-upload[ng-if="!genericFileCtrl.uploadGenericFileProgress.isInProgress"]
+					p == data[:strings][:code_signing][:generic_file][:env_var_details]
+					code.env-var[ng-bind="genericFileCtrl.downloadURLEnvVarKey()"]
+					input.unique-id[type="text" ng-model="genericFileCtrl.uploadedGenericFile.name" placeholder="#{ data[:strings][:code_signing][:generic_file][:uploaded_file_placeholder] }"]
+					file-uploader[onupload="genericFileCtrl.uploadGenericFile()" model="genericFileCtrl.genericFileUploader"]
+						strong[ng-bind="genericFileCtrl.uploadInstruction"]
+						em == data[:strings][:code_signing][:generic_file][:upload_instructions]

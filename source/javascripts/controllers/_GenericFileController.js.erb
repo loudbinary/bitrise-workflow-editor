@@ -2,7 +2,7 @@
 
 "use strict";
 
-angular.module("BitriseWorkflowEditor").controller("GenericFileController", function($timeout, stringService, Progress, GenericFile) {
+angular.module("BitriseWorkflowEditor").controller("GenericFileController", function($q, $timeout, stringService, Progress, GenericFile) {
 
 	var viewModel = this;
 
@@ -19,6 +19,9 @@ angular.module("BitriseWorkflowEditor").controller("GenericFileController", func
 	viewModel.uploadInstruction = stringService.stringReplacedWithParameters("<%= data[:strings][:code_signing][:generic_file][:upload_action] %>", {
 		maximum_file_size_in_megabytes: maximumFileSizeInMegabytes
 	});
+	viewModel.uploadedGenericFile = new GenericFile();
+	viewModel.uploadedGenericFile.name = "";
+	viewModel.genericFileUploader;
 
 	function loadGenericFiles() {
 		viewModel.loadGenericFilesProgress.start("<%= data[:strings][:code_signing][:generic_file][:load_progress][:in_progress] %>");
@@ -39,17 +42,37 @@ angular.module("BitriseWorkflowEditor").controller("GenericFileController", func
 		}, 2000);
 	}
 
+	viewModel.downloadURLEnvVarKey = function() {
+		return "$BITRISEIO_" + (viewModel.uploadedGenericFile.name.length > 0 ? viewModel.uploadedGenericFile.name : "[<%= data[:strings][:code_signing][:generic_file][:id_specified] %>]") + "_URL";
+	}
+
 	viewModel.uploadGenericFile = function() {
 		viewModel.uploadGenericFileProgress.start("<%= data[:strings][:code_signing][:generic_file][:upload_progress][:in_progress] %>");
 
-		// TODO: implement
-		$timeout(function() {
-			var genericFile = new GenericFile();
-			genericFile.name = "generic-file-" + viewModel.genericFiles.length;
-			viewModel.genericFiles.push(genericFile);
+		$q(function(resolve, reject) {
+			if (viewModel.uploadedGenericFile.name.length == 0) {
+				reject(new Error("<%= data[:strings][:code_signing][:generic_file][:upload][:no_id_specified] %>"));
+			}
+			else if (_.find(viewModel.genericFiles, {
+				name: viewModel.uploadedGenericFile.name
+			})) {
+				reject(new Error("<%= data[:strings][:code_signing][:generic_file][:upload][:id_not_unique] %>"));
+			}
+			else {
+				// TODO: implement
+				$timeout(resolve, 2000);
+			}
+		}).then(function() {
+			viewModel.genericFiles.push(viewModel.uploadedGenericFile);
+			viewModel.uploadedGenericFile = new GenericFile();
+			viewModel.uploadedGenericFile.name = "";
 
 			viewModel.uploadGenericFileProgress.success("<%= data[:strings][:code_signing][:generic_file][:upload_progress][:success] %>");
-		}, 2000);
+		}, function(error) {
+			viewModel.uploadGenericFileProgress.error(error);
+
+			viewModel.genericFileUploader.$setPristine();
+		});
 	};
 
 	viewModel.renameGenericFileSelected = function(genericFile) {

@@ -2,7 +2,7 @@
 
 "use strict";
 
-angular.module("BitriseWorkflowEditor").directive("fileUploader", function() {
+angular.module("BitriseWorkflowEditor").directive("fileUploader", function($parse) {
 
 	return {
 		restrict: "E",
@@ -11,6 +11,7 @@ angular.module("BitriseWorkflowEditor").directive("fileUploader", function() {
 		template: function(tElement, tAttrs) {
 			var formElement = angular.element("<form></form");
 			$(formElement).attr("ng-submit", tAttrs.onupload);
+			$(formElement).attr("name", tAttrs.model);
 			$(formElement).addClass("file-uploader");
 
 			var fileInputElement = angular.element("<input>");

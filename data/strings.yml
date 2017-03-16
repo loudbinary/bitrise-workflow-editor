@@ -148,8 +148,14 @@ code_signing:
     header: Android Keystore & Generic File Storage
     upload_action: Upload file (max. <maximum_file_size_in_megabytes> MB)
     upload_instructions: Click here or Drag & Drop to upload
+    id_specified: the ID you specify
+    uploaded_file_placeholder: Enter a unique ID
     load_progress:
       in_progress: Loading, wait a sec...
+    env_var_details: "Download URL will be available as the Environment Variable:"
+    upload:
+      no_id_specified: "No ID specified. Please specify a unique ID and try again."
+      id_not_unique: "Specified ID is not unique. Please try again."
     upload_progress:
       in_progress: "Uploading, wait a sec..."
       success: "File uploaded!"

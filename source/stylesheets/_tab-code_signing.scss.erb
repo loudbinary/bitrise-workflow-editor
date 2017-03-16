@@ -210,51 +210,54 @@
 		}
 	}
 
-	.file-uploader {
-		position: relative;
-		margin: 12px $cardo-horizontalpadding;
-		border: 4px dashed $def-mediumlightgrey;
-		@include border-radius($def-radius);
-		padding: 18px;
+	.file-upload {
+		padding: 12px $cardo-horizontalpadding;
 
-		input[type="file"] {
-			@include position(absolute, 0, 0);
-			z-index: $zindex-file_uploader_input;
-			@include size(100%);
-			font-size: 0;
-			opacity: 0;
-			cursor: pointer;
-		}
+		.file-uploader {
+			position: relative;
+			border: 4px dashed $def-mediumlightgrey;
+			@include border-radius($def-radius);
+			padding: 18px;
 
-		input[type="submit"] {
-			@include position(absolute, 0, 0);
-			@include size(0);
-			border: none;
-			padding: 0;
-			opacity: 0;
-		}
-
-		.content {
-			text-align: center;
-			font-size: 12px;
-			opacity: 0.5;
-			color: $def-verydarkgrey;
-			@include transition(opacity, $def-transition_duration);
-
-			strong {
-				display: block;
-				margin-bottom: 4px;
-				font-weight: 500;
+			input[type="file"] {
+				@include position(absolute, 0, 0);
+				z-index: $zindex-file_uploader_input;
+				@include size(100%);
+				font-size: 0;
+				opacity: 0;
+				cursor: pointer;
 			}
 
-			em {
-				display: block;
-				font-weight: 100;
+			input[type="submit"] {
+				@include position(absolute, 0, 0);
+				@include size(0);
+				border: none;
+				padding: 0;
+				opacity: 0;
 			}
-		}
 
-		input[type="file"]:hover ~ .content, input[type="file"]:focus ~ .content {
-			opacity: 1.0;
+			.content {
+				text-align: center;
+				font-size: 12px;
+				opacity: 0.5;
+				color: $def-verydarkgrey;
+				@include transition(opacity, $def-transition_duration);
+
+				strong {
+					display: block;
+					margin-bottom: 4px;
+					font-weight: 500;
+				}
+
+				em {
+					display: block;
+					font-weight: 100;
+				}
+			}
+
+			input[type="file"]:hover ~ .content, input[type="file"]:focus ~ .content {
+				opacity: 1.0;
+			}
 		}
 	}
 
@@ -370,6 +373,39 @@
 				&:before {
 					background-image: image-url("code_signing/file-green.svg");
 				}
+			}
+		}
+
+		.file-upload {
+
+			p {
+				margin-top: 0;
+				margin-bottom: 10px;
+				font-size: 14px;
+				font-weight: 200;
+			}
+
+			code.env-var {
+				display: block;
+				margin-bottom: 10px;
+				border: 1px solid $def-mediumlightgrey;
+				@include border-radius($def-radius);
+				padding: 10px 18px;
+				font-size: 14px;
+				font-weight: 200;
+				color: $def-purple;
+				background-color: $def-verylightgrey;
+			}
+
+			input.unique-id {
+				display: block;
+				width: 100%;
+				margin-bottom: 10px;
+				border: 1px solid $def-mediumlightgrey;
+				@include border-radius($def-radius);
+				padding: 10px 18px;
+				font-size: 14px;
+				font-weight: 200;
 			}
 		}
 	}
