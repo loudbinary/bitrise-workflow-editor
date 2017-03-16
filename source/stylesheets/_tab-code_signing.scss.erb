@@ -143,19 +143,15 @@
 
 			input.name {
 				@include flex-grow(1);
-				padding: 4px 8px;
+				padding: 5px 8px;
 				font-size: 14px;
 				border: 1px solid transparent;
 				@include border-radius($def-radius);
 				@include transition(border-color, $def-transition_duration);
 			}
 
-			input.name:hover {
+			input.name:focus, input.name:hover, input.rename-in-progress {
 				border-color: $def-mediumlightgrey;
-			}
-
-			input.name:focus {
-				border-color: $def-grey;
 			}
 
 			.rename-actions {

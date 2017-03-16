@@ -47,10 +47,6 @@ angular.module("BitriseWorkflowEditor").controller("ProvProfileController", func
 		}, 2000);
 	};
 
-	viewModel.downloadProvProfile = function(provProfile) {
-		window.location = provProfile.name;
-	};
-
 	viewModel.renameProvProfileSelected = function(provProfile) {
 		viewModel.renamedProvProfile = provProfile;
 		renamedProvProfileOriginalName = provProfile.name;

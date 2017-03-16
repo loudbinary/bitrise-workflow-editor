@@ -24,12 +24,12 @@
 			div[ng-if="provProfileCtrl.loadProvProfilesProgress.isIdle && !provProfileCtrl.provProfileActionProgress.isInProgress"]
 				ul.entries.prov-profiles
 					li[ng-repeat="provProfile in provProfileCtrl.provProfiles"]
-						input.name[type="text" ng-model="provProfile.name" ng-focus="provProfileCtrl.renameProvProfileSelected(provProfile)"]
+						input.name[type="text" ng-model="provProfile.name" ng-focus="provProfileCtrl.renameProvProfileSelected(provProfile)" ng-class="{'rename-in-progress': provProfile == provProfileCtrl.renamedProvProfile}"]
 						.rename-actions[ng-if="provProfile == provProfileCtrl.renamedProvProfile"]
 							button.ok.rebo.small.green[ng-click="provProfileCtrl.rename()"] == data[:strings][:code_signing][:prov_profile][:rename_ok]
 							button.cancel.rebo.small.danger[ng-click="provProfileCtrl.cancelRename()"] == data[:strings][:code_signing][:prov_profile][:rename_cancel]
 						.actions
-							button.furto.download[ng-click="provProfileCtrl.downloadProvProfile(provProfile)"] = svg("arrow_tailed_slim-down")
+							button.furto.download[ng-click="provProfile.download()"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="provProfileCtrl.deleteProvProfile(provProfile)"] = svg("cross")
 				p.progress-indicator[progress-model="provProfileCtrl.uploadProvProfileProgress"]
 				file-uploader[ng-if="!provProfileCtrl.uploadProvProfileProgress.isInProgress" onupload="provProfileCtrl.uploadProvProfile()"]
@@ -57,7 +57,7 @@
 							.show-password
 								checkbox.small[ng-model="showPassword" checkbox-id-expression="'code-signin-show-password-checkbox-' + $index"]
 								label[for="'code-signin-show-password-checkbox-' + $index"] == data[:strings][:code_signing][:certificate][:show_password]
-						.actions
+						.actions[ng-if="certificate != certificateCtrl.renamedCertificate && certificate != certificateCtrl.passwordEditedCertificate"]
 							button.furto.download[ng-click="certificateCtrl.downloadCertificate(certificate)"] = svg("arrow_tailed_slim-down")
 							button.furto.delete[ng-click="certificateCtrl.deleteCertificate(certificate)"] = svg("cross")
 				p.progress-indicator[progress-model="certificateCtrl.uploadCertificateProgress"]

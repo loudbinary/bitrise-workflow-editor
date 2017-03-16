@@ -23,7 +23,7 @@ BitriseWorkflowEditor.config(function($animateProvider) {
 BitriseWorkflowEditor.config(function($routeProvider) {
 
 	$routeProvider.when("/<%= data[:routes][:endpoints][:workflows] %>", {
-		templateUrl: "<%= mode_dependant_asset_path(data[:routes][:templates][:workflows]) %>"
+		templateUrl: "<%= mode_dependant_asset_path(data[:routes][:templates][:workflows]) %>",
 		reloadOnSearch: false
 	});
 
