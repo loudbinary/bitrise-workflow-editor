@@ -159,7 +159,7 @@ main {
 			}
 		}
 
-		@include media-below(1100px) {
+		@include media-below(1180px) {
 			@include flex-direction(column);
 
 			nav {
