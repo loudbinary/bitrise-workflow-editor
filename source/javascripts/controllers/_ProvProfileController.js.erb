@@ -50,6 +50,10 @@ angular.module("BitriseWorkflowEditor").controller("ProvProfileController", func
 	viewModel.renameProvProfileSelected = function(provProfile) {
 		viewModel.renamedProvProfile = provProfile;
 		renamedProvProfileOriginalName = provProfile.name;
+
+		if (viewModel.uploadProvProfileProgress.isIdle && viewModel.uploadProvProfileProgress.statusMessage !== null) {
+			viewModel.uploadProvProfileProgress.reset();
+		}
 	};
 
 	viewModel.rename = function() {

@@ -44,7 +44,7 @@
 			div[ng-if="certificateCtrl.loadCertificatesProgress.isIdle && !certificateCtrl.certificateActionProgress.isInProgress"]
 				ul.entries.prov-profiles
 					li[ng-repeat="certificate in certificateCtrl.certificates" ng-init="showPassword = false"]
-						input.name[type="text" ng-model="certificate.name" ng-focus="certificateCtrl.renameCertificateSelected(certificate)"]
+						input.name[type="text" ng-model="certificate.name" ng-focus="certificateCtrl.renameCertificateSelected(certificate)" ng-class="{'rename-in-progress': certificate == certificateCtrl.renamedCertificate}"]
 						.rename-actions[ng-if="certificate == certificateCtrl.renamedCertificate"]
 							button.ok.rebo.small.green[ng-click="certificateCtrl.rename()"] == data[:strings][:code_signing][:certificate][:rename_ok]
 							button.cancel.rebo.small.danger[ng-click="certificateCtrl.cancelRename()"] == data[:strings][:code_signing][:certificate][:rename_cancel]
@@ -64,3 +64,23 @@
 				file-uploader[ng-if="!certificateCtrl.uploadCertificateProgress.isInProgress" onupload="certificateCtrl.uploadCertificate()"]
 					strong == data[:strings][:code_signing][:certificate][:upload_action]
 					em == data[:strings][:code_signing][:certificate][:upload_instructions]
+	section.cardo.uppercase.slim.generic-file-storage[ng-controller="GenericFileController as genericFileCtrl"]
+		header
+			h2 == data[:strings][:code_signing][:generic_file][:header]
+		article
+			p.progress-indicator[progress-model="genericFileCtrl.loadGenericFilesProgress"]
+			p.progress-indicator[progress-model="genericFileCtrl.genericFileActionProgress"]
+			div[ng-if="genericFileCtrl.loadGenericFilesProgress.isIdle && !genericFileCtrl.genericFileActionProgress.isInProgress"]
+				ul.entries.prov-profiles
+					li[ng-repeat="genericFile in genericFileCtrl.genericFiles"]
+						input.name[type="text" ng-model="genericFile.name" ng-focus="genericFileCtrl.renameGenericFileSelected(genericFile)" ng-class="{'rename-in-progress': genericFile == genericFileCtrl.renamedGenericFile}"]
+						.rename-actions[ng-if="genericFile == genericFileCtrl.renamedGenericFile"]
+							button.ok.rebo.small.green[ng-click="genericFileCtrl.rename()"] == data[:strings][:code_signing][:generic_file][:rename_ok]
+							button.cancel.rebo.small.danger[ng-click="genericFileCtrl.cancelRename()"] == data[:strings][:code_signing][:generic_file][:rename_cancel]
+						.actions
+							button.furto.download[ng-click="genericFile.download()"] = svg("arrow_tailed_slim-down")
+							button.furto.delete[ng-click="genericFileCtrl.deleteGenericFile(genericFile)"] = svg("cross")
+				p.progress-indicator[progress-model="genericFileCtrl.uploadGenericFileProgress"]
+				file-uploader[ng-if="!genericFileCtrl.uploadGenericFileProgress.isInProgress" onupload="genericFileCtrl.uploadGenericFile()"]
+					strong[ng-bind="genericFileCtrl.uploadInstruction"]
+					em == data[:strings][:code_signing][:generic_file][:upload_instructions]

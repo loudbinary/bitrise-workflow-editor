@@ -144,6 +144,23 @@ code_signing:
     rename_cancel: Cancel
     rename_progress:
       in_progress: Renaming, wait a sec...
+  generic_file:
+    header: Android Keystore & Generic File Storage
+    upload_action: Upload file (max. <maximum_file_size_in_megabytes> MB)
+    upload_instructions: Click here or Drag & Drop to upload
+    load_progress:
+      in_progress: Loading, wait a sec...
+    upload_progress:
+      in_progress: "Uploading, wait a sec..."
+      success: "File uploaded!"
+    download_progress:
+      in_progress: Preparing download, wait a sec...
+    delete_progress:
+      in_progress: Deleting, wait a sec...
+    rename_ok: OK
+    rename_cancel: Cancel
+    rename_progress:
+      in_progress: Renaming, wait a sec...
 env_vars:
   load_progress:
     in_progress: Loading, wait a sec...
